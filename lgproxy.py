@@ -89,6 +89,33 @@ def traceroute():
     
     return result
 
+# ping + ping6
+@app.route("/ping")
+@app.route("/ping6")
+def ping():
+    check_accesslist()
+
+    ping4 = [ 'ping', '-4' ]
+    ping6 = [ 'ping', '-6' ]
+
+    src = []
+    if request.path == '/ping6':
+	    ping = ping6
+	    if app.config.get("IPV6_SOURCE",""):
+	        src = [ "-I",  app.config.get("IPV6_SOURCE") ]
+    else:
+	    ping = ping4
+	    if app.config.get("IPV4_SOURCE",""):
+	        src = [ "-I",  app.config.get("IPV4_SOURCE") ]
+
+    query = request.args.get("q","")
+    query = unquote(query)
+
+    options = [ '-c 5' ]
+    command = ping + src + options + [ query ]
+    result = subprocess.Popen( command , stdout=subprocess.PIPE).communicate()[0].decode('utf-8', 'ignore').replace("\n","<br>")
+
+    return result
 
 
 @app.route("/bird")
