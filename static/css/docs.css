@@ -10,7 +10,7 @@
 -------------------------------------------------- */
 body {
   position: relative;
-  padding-top: 68px;
+  padding-top: 100px;
   background-color: #fff;
   background-repeat: repeat-x;
   background-position: 0 40px;
@@ -40,7 +40,7 @@ body {
 /* Space out sub-sections more
 -------------------------------------------------- */
 section {
-  padding-top: 60px;
+  padding-top: 80px;
 }
 
 /* Faded out hr */
